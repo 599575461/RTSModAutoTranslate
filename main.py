@@ -10,7 +10,7 @@ from hashlib import md5
 from requests import post
 from configparser import RawConfigParser
 from random import randint
-from typing import List, Dict
+from typing import  Dict
 
 
 def stopApp():
@@ -77,9 +77,9 @@ class RustedWarfareInI:
 
     @staticmethod
     def getInIFiles():
-        listInI: List[str] = []
+        listInI = []
 
-        for root, dirs, files in os.walk("."):
+        for root, dirs, files in os.walk(args.modPath):
             for file in files:
                 if file.endswith(".ini"):
                     listInI.append(os.path.join(root, file))
@@ -195,13 +195,11 @@ class RustedWarfareInI:
 
 
 if __name__ == "__main__":
-    os.chdir(os.path.dirname(__file__))
-
     parser = argparse.ArgumentParser(description='铁锈战争MOD翻译器')
     parser.add_argument('-m', "--modPath", type=str, default=".", help="mod文件夹路径,一般文件夹下有mod-info.txt文件")
-    parser.add_argument('-k', "--tranAppKey", type=str, default="",
+    parser.add_argument('-k', "--tranAppKey", type=str, default="gN5BDI4o35mJsDMYewWQ",
                         help="百度翻译API Key,不写用作者的")
-    parser.add_argument('-i', "--tranAppId", type=str, default="", help="百度翻译API Id,不写用作者的")
+    parser.add_argument('-i', "--tranAppId", type=str, default="20230821001788876", help="百度翻译API Id,不写用作者的")
     parser.add_argument('-j', "--jsonPath", type=str, default="build",
                         help="软件自己生成的Json文件地址,不写使用build文件夹下的，如果已经存在则读取并配置")
     parser.add_argument('-a', "--allTran", type=bool, default=False,
@@ -217,3 +215,5 @@ if __name__ == "__main__":
     else:
         print(f"未读取到Json文件,开始配置")
         r.build()
+
+    os.system("pause")
